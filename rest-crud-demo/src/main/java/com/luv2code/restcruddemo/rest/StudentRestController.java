@@ -44,38 +44,5 @@ public class StudentRestController {
     }
 
 
-    @ExceptionHandler
-    public ResponseEntity<String> handleException(StudentNotFoundException exc) {
-
-        // instantiate StudentErrorResponse custom error class
-        StudentErrorResponse error = new StudentErrorResponse();
-
-        // set error status
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
-
-
-        return new ResponseEntity<>(HTMLizeError(error.getMessage()), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<String> handleException(Exception exc) {
-
-        StudentErrorResponse error = new StudentErrorResponse();
-
-        // set error status
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setMessage("Please only enter integer value!");
-        error.setTimeStamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(HTMLizeError(error.getMessage()), HttpStatus.NOT_FOUND);
-    }
-
-
-    public String HTMLizeError(String errorMessage) {
-         return "<h1>" + errorMessage + "</h1>";
-    }
-
 
 }
